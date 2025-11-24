@@ -12,9 +12,10 @@
 - JDK 17+
 
 ## 快速开始
-- 启动服务
+- 启动服务（默认 MySQL 配置）
   - `mvn -f campus-sys-backend/pom.xml spring-boot:run`
-  - 访问文档：`http://localhost:8081/swagger-ui/index.html`
+  - 前端入口：`http://localhost:8081/`
+  - 文档入口：`http://localhost:8081/swagger-ui/index.html`
 - 备用方式（打包运行）
   - `mvn -f campus-sys-backend/pom.xml -DskipTests=true package`
   - `java -jar campus-sys-backend/target/campus-sys-backend-0.1.0.jar`
@@ -103,23 +104,24 @@ curl -s -X POST http://localhost:8081/api/classrooms/<班级id>/students \
   - 操作目标不存在，先用 `GET` 查询确认 id 存在。
 
 ## 数据库
-- 默认使用 H2 内存库，配置位于 `campus-sys-backend/src/main/resources/application.yml`。
-- 切换到 MySQL（示例）：
+- 运行 Profile：`spring.profiles.active: mysql`（见 `campus-sys-backend/src/main/resources/application.yml`）
+- MySQL 连接配置（默认库名 `zuoye`）：`campus-sys-backend/src/main/resources/application-mysql.yml`
 
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/campsys?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/zuoye?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: your_user
-    password: your_pass
+    username: root
+    password: "<your_password>"
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
 ```
 
-- 建议先手动建库，再运行应用；如需按指定 SQL 初始化，可将脚本按需要执行并对齐实体字段。
+- 连接验证：启动日志应包含 `HikariPool-1 - Added connection ...`，调用接口时打印 `Hibernate: ...` SQL。
+- 如需切换库名/主机，请修改 `url` 中的库和主机端口。
 
 ## 项目结构
 - 入口：`campus-sys-backend/src/main/java/com/campus/sys/CampusSysBackendApplication.java`
@@ -127,7 +129,15 @@ spring:
 - 鉴权：`auth`（登录、JWT 工具、过滤器）
 - 领域模块：`activity`、`classroom`、`teacher`、`course`、`unit`、`student`、`user`
 - 配置文件：`campus-sys-backend/src/main/resources/application.yml`
+- MySQL Profile 配置：`campus-sys-backend/src/main/resources/application-mysql.yml`
+- 静态前端：`campus-sys-backend/src/main/resources/static/index.html`、`static/app.js`、`static/styles.css`
 - 接口测试：`campus-sys-backend/src/test/java/com/campus/sys/ApiTests.java`
+
+## 前端使用
+- 入口：`http://localhost:8081/`，先登录（`admin/admin123`）后，页面会自动携带 token 调用接口。
+- 支持操作：创建/发布活动、创建教学班、添加学生、设置教师、创建课程、创建/查询学习单元、创建用户等。
+- 活动字段：`name`、`title`、`description`、`term`、`grade`
+- 单元字段：`chapter`、`section`、`docUrl?`、`videoUrl?`、`points`
 
 ## 测试
 - 运行：`mvn -f campus-sys-backend/pom.xml test`

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Sys 前端示例</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Campus Sys Backend 接口演示</h1>
+    <section id="login">
+      <h2>登录</h2>
+      <div class="row">
+        <input id="username" placeholder="用户名" value="admin" />
+        <input id="password" placeholder="密码" type="password" value="admin123" />
+        <button id="btnLogin">登录</button>
+      </div>
+      <div class="row">
+        <span>Token 状态：</span>
+        <span id="tokenStatus">未登录</span>
+        <button id="btnLogout">登出</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>活动 Activity</h2>
+      <div class="row">
+        <input id="actName" placeholder="name" />
+        <input id="actTitle" placeholder="title" />
+        <input id="actDesc" placeholder="description" />
+        <input id="actTerm" placeholder="term" />
+        <input id="actGrade" placeholder="grade" />
+        <button id="btnActCreate">创建活动</button>
+      </div>
+      <div class="row">
+        <input id="publishId" placeholder="活动ID" />
+        <button id="btnPublish">发布活动</button>
+      </div>
+      <div class="row">
+        <select id="actStatus">
+          <option value="">全部</option>
+          <option value="PUBLISHED">PUBLISHED</option>
+          <option value="DRAFT">DRAFT</option>
+        </select>
+        <input id="actSearchName" placeholder="按名称搜索" />
+        <button id="btnActQuery">查询活动</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>教学班 Classroom</h2>
+      <div class="row">
+        <input id="clsName" placeholder="name" />
+        <input id="clsActivityId" placeholder="activityId" />
+        <button id="btnClsCreate">创建教学班</button>
+      </div>
+      <div class="row">
+        <input id="clsIdForStudents" placeholder="classroomId" />
+        <input id="studentIds" placeholder="学生ID列表, 逗号分隔" />
+        <button id="btnClsAddStudents">添加学生</button>
+      </div>
+      <div class="row">
+        <input id="clsIdForTeachers" placeholder="classroomId" />
+        <input id="teacherIds" placeholder="教师ID列表, 逗号分隔" />
+        <button id="btnClsSetTeachers">设置教师</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>教师 Teacher</h2>
+      <div class="row">
+        <input id="tName" placeholder="name" />
+        <input id="tEmail" placeholder="email" />
+        <input id="tPhone" placeholder="phone" />
+        <button id="btnTeacherAdd">新增教师</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>学生 Student</h2>
+      <div class="row">
+        <input id="sName" placeholder="name" />
+        <input id="sGrade" placeholder="grade" />
+        <button id="btnStudentAdd">新增学生</button>
+      </div>
+      <div class="row">
+        <input id="sAuditId" placeholder="学生ID" />
+        <button id="btnStudentAudit">审核学生</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>课程与单元</h2>
+      <div class="row">
+        <input id="courseName" placeholder="课程 name" />
+        <input id="courseActivityId" placeholder="activityId" />
+        <input id="courseClassroomId" placeholder="classroomId (可选)" />
+        <input id="courseTeacherId" placeholder="teacherId" />
+        <button id="btnCourseCreate">创建课程</button>
+      </div>
+      <div class="row">
+        <input id="unitCourseId" placeholder="courseId" />
+        <input id="unitChapter" placeholder="chapter" />
+        <input id="unitSection" placeholder="section" />
+        <input id="unitDocUrl" placeholder="docUrl" />
+        <input id="unitVideoUrl" placeholder="videoUrl" />
+        <input id="unitPoints" placeholder="points" />
+        <button id="btnUnitCreate">创建学习单元</button>
+      </div>
+      <div class="row">
+        <input id="unitQueryCourseId" placeholder="courseId" />
+        <button id="btnUnitQuery">查询单元</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>响应结果</h2>
+      <pre id="output"></pre>
+    </section>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

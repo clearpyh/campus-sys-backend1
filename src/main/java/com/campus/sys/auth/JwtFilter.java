@@ -30,6 +30,8 @@ public class JwtFilter extends OncePerRequestFilter {
     if (path.equals("/error")) return true;
     if (path.startsWith("/v3/api-docs")) return true;
     if (path.startsWith("/swagger-ui")) return true;
+    if (path.equals("/")) return true;
+    if (path.endsWith(".html") || path.endsWith(".js") || path.endsWith(".css") || path.endsWith(".png") || path.endsWith(".jpg") || path.endsWith(".jpeg") || path.endsWith(".ico") || path.endsWith(".svg")) return true;
     return false;
   }
 
